@@ -52,5 +52,5 @@ def main():
             
 main()
 with st.sidebar:
-    st.title("salom")
+    st.title("O'z shaxsiy identifikatsiya raqamingizni kiritgan holda o'zingiz haqingizda ma'lumotga ega bo'ling")
     st.balloons()
