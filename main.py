@@ -1,4 +1,8 @@
 import streamlit as st
+import datetime
+
+x = datetime.datetime.now()
+
 
 st.set_page_config(
     page_title="JSHIR",
@@ -24,7 +28,7 @@ with st.expander("JSHSHIR (PINFL) nima va uni qanday aniqlash mumkin?",expanded=
                 <h5>Uni aniqlash juda oson. Quyida ko‘rsatilgan surat orqali pasportingizdan 14 ta raqamni toping, ana shu Sizning JSHSHIRingiz bo‘ladi.</h5>
                 <h5>Shu o‘rinda, 16 yoshga to‘lgan, lekin hali pasport olmagan abituriyentlar tezroq pasport olishga harakat qilishlari kerak. Chunki pasport bo‘lmasa JSHSHIR raqam ham bo‘lmaydi, bu degani abituriyentlar hujjat topshira olmay qolishlari mumkin. Pasportini yo‘qotgan/shikastlagan abituriyentlar ham pasportini tezroq yangilashi lozim.</h5>
                 """,unsafe_allow_html=True)
-jshir = st.text_input('JSHIRNI kiriting', max_chars=14, placeholder="31711946030025", help="Yordam uchun yuqoridagi tugmani bosing")
+jshir = st.chat_input('JSHIRNI kiriting', max_chars=14, placeholder="JSHIRNI kiriting")
 
 oy_nomlari ={
     1: "Yanvar",
@@ -52,6 +56,11 @@ def main():
                 kun = int(jshir[1]+jshir[2])
                 oy = int(jshir[3]+jshir[4])
                 yil =int("19"+jshir[5]+jshir[6]) if(jins==3 or jins ==4) else int("20"+jshir[5]+jshir[6])
+                nazorat_raqami = (7*jins+3*int(jshir[1])+1*int(jshir[2])+7*int(jshir[3])+3*int(jshir[4])+1*int(jshir[5])+7*int(jshir[6])+3*int(jshir[7])+1*int(jshir[8])+7*int(jshir[9])+3*int(jshir[10])+1*int(jshir[11])+7*int(jshir[12]))%10
+                
+                tuman_kodi = int(jshir[7]+jshir[8]+jshir[9])
+                pasport_navbatingiz = int(jshir[10]+jshir[11]+jshir[12])
+                kiritilganlik="✅ To'g'ri to'ldirilgan" if (nazorat_raqami==int(jshir[13])) else "🚫 Xato to'ldirilgan"
                 with col1.expander("Ma'lumotlarni yoyish"):
                     st.json({
                         "Murojaat": "Janob" if(jins%2!=0) else "Honim",
@@ -59,9 +68,9 @@ def main():
                         "Oy": oy_nomlari[oy],
                         "Yil": yil, 
                     })
-                col2.markdown(f"<h4 style='color: blue; text-align: center;'>Hurmatli {"Janob" if(jins%2!=0) else "Honim"}. Siz {kun}-{oy_nomlari[oy]}, {yil} da tug'ilgansiz. Sizning yoshingiz {2024-yil} da</h4>",unsafe_allow_html=True)
+                col2.text_area(label="Natija",value=f"Hurmatli {"Janob" if(jins%2!=0) else "Honim"}. Siz {kun}-{oy_nomlari[oy]}, {yil}-yilda tug'ilgansiz.\nSizning yoshingiz {x.year-yil} da. Tuman, shahar kodingiz: {tuman_kodi}, navbatingiz: {pasport_navbatingiz}, nazorat raqami: {nazorat_raqami}.\n {kiritilganlik}", disabled=True)
     except Exception as e:
-        st.error('This is an error', icon="🚨")
+        st.error(f'Xatolik sodir bo`ldi : {e}', icon="🚨")
             
 main()
 with st.sidebar:
