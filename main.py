@@ -28,7 +28,7 @@ with st.expander("JSHSHIR (PINFL) nima va uni qanday aniqlash mumkin?",expanded=
                 <h5>Uni aniqlash juda oson. Quyida ko‘rsatilgan surat orqali pasportingizdan 14 ta raqamni toping, ana shu Sizning JSHSHIRingiz bo‘ladi.</h5>
                 <h5>Shu o‘rinda, 16 yoshga to‘lgan, lekin hali pasport olmagan abituriyentlar tezroq pasport olishga harakat qilishlari kerak. Chunki pasport bo‘lmasa JSHSHIR raqam ham bo‘lmaydi, bu degani abituriyentlar hujjat topshira olmay qolishlari mumkin. Pasportini yo‘qotgan/shikastlagan abituriyentlar ham pasportini tezroq yangilashi lozim.</h5>
                 """,unsafe_allow_html=True)
-jshir = st.chat_input('JSHIRNI kiriting', max_chars=14, placeholder="JSHIRNI kiriting")
+jshir = st.chat_input('JSHIRNI kiriting', max_chars=14)
 
 oy_nomlari ={
     1: "Yanvar",
